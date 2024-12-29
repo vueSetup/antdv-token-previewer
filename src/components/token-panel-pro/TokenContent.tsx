@@ -29,6 +29,7 @@ import makeStyle from '../utils/makeStyle'
 import InputNumberPlus from './InputNumberPlus'
 import ResetTokenButton from './ResetTokenButton'
 import TokenPreview from './TokenPreview'
+import IconSwitch from './IconSwitch'
 
 type TokenMeta = Record<string, {
   name: string,
@@ -442,7 +443,7 @@ const useStyle = makeStyle('ColorTokenContent', (token) => ({
         fontWeight: token.fontWeightStrong,
 
         '> span': {
-          fontSize: token.fontSizeLG,
+          fontSize: token.fontSizeLG
         },
       },
     },
@@ -776,31 +777,53 @@ const TokenContent = defineComponent({
             <span style={{ marginRight: 12 }}>
               {locale.value._lang === 'zh-CN' ? category.value.name : category.value.nameEn}
             </span>
-            {category.value.nameEn === 'Color' && (
+            {/* {category.value.nameEn === 'Color' && (
               <Segmented
                 options={[
-                  { icon: <Light style={{ fontSize: 16 }} />, value: 'light' },
-                  { icon: <DarkTheme style={{ fontSize: 16 }} />, value: 'dark' },
+                  { label: <Light style={{ fontSize: 16 }} />, value: 'light' },
+                  { label: <DarkTheme style={{ fontSize: 16 }} />, value: 'dark' },
                 ]}
                 onChange={switchAlgorithm('dark')}
                 value={isLeftChecked('dark') ? 'light' : 'dark'}
                 style={{ marginLeft: 'auto' }}
               />
+            )} */}
+            {category.value.nameEn === 'Color' && (
+              <IconSwitch
+                onChange={switchAlgorithm('dark')}
+                leftChecked={isLeftChecked('dark')}
+                v-slots={{
+                  leftIcon: () => <Light />,
+                  rightIcon: () => <DarkTheme />,
+                }}
+                style={{ marginLeft: 'auto' }}
+              />
             )}
-            {category.value.nameEn === 'Size' && (
+            {/* {category.value.nameEn === 'Size' && (
               <Segmented
                 options={[
                   {
-                    icon: <ExpandOutlined style={{ fontSize: 13, marginTop: 1 }} />,
+                    label: <ExpandOutlined style={{ fontSize: 13, marginTop: 1 }} />,
                     value: 'normal',
                   },
                   {
-                    icon: <CompactTheme style={{ fontSize: 16 }} />,
+                    label: <CompactTheme style={{ fontSize: 16 }} />,
                     value: 'compact',
                   },
                 ]}
                 onChange={switchAlgorithm('compact')}
                 value={isLeftChecked('compact') ? 'normal' : 'compact'}
+                style={{ marginLeft: 'auto' }}
+              />
+            )} */}
+            {category.value.nameEn === 'Size' && (
+              <IconSwitch
+                onChange={switchAlgorithm('compact')}
+                leftChecked={isLeftChecked('compact')}
+                v-slots={{
+                  leftIcon: () => <ExpandOutlined />,
+                  rightIcon: () => <CompactTheme />,
+                }}
                 style={{ marginLeft: 'auto' }}
               />
             )}
