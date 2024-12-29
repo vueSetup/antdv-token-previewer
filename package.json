@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
+    "@ctrl/tinycolor": "^4.1.0",
     "ant-design-vue": "^4.2.6",
     "lodash": "^4.17.21",
     "pinia": "^2.3.0",

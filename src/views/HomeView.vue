@@ -1,8 +1,7 @@
 <script setup lang="ts">
-
+import { ThemeEditor } from '@/components'
 </script>
 
 <template>
-  <main>
-  </main>
+  <theme-editor />
 </template>
