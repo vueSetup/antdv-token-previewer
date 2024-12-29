@@ -30,7 +30,7 @@ const useStyle = makeStyle('TokenPanelPro', (token) => ({
 
       [`${token.componentCls}-list`]: {
         overflow: 'auto',
-      },
+      }
     },
   },
 }))
