@@ -7,7 +7,7 @@ export const getPrefixCls = (suffixCls?: string, customizePrefixCls?: string) =>
   return suffixCls ? `${defaultPrefixCls}-${suffixCls}` : defaultPrefixCls
 }
 
-export const useStyle = makeStyle('TokenPanelPro', (token) => ({
+export const useStyle = makeStyle('TokenPanel', (token) => ({
   [token.componentCls]: {
     width: '100%',
     height: '100%',

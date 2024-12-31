@@ -6,12 +6,12 @@ import {
   type PropType,
   type CSSProperties
 } from 'vue'
-import type { Theme, SelectedToken } from '../interface'
-import { tokenCategory, type TokenGroup } from '../meta'
 import { Anchor } from 'ant-design-vue'
-import TokenContent from '../token-panel-pro/TokenContent'
+import { TokenContent } from './token-content'
+import { tokenCategory, type TokenGroup } from '../meta'
 import { useLocale } from '../locale'
 import { getPrefixCls, useStyle } from './style'
+import type { Theme, SelectedToken } from '../interface'
 
 export type TokenPanelProps = {
   theme: Theme
@@ -38,6 +38,7 @@ export const TokenPanel = defineComponent({
     aliasOpenChange: (value: boolean) => true // ???
   },
   setup(props, { attrs, emit }) {
+    // const prefixCls = 'token-panel-pro'
     const prefixCls = getPrefixCls('token-panel')
     const [wrapSSR, hashId] = useStyle(prefixCls)
 

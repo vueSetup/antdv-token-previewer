@@ -8,14 +8,15 @@ export type InputNumberPlusProps = {
   onChange?: (value: number | null) => void
 }
 
-const InputNumberPlus = defineComponent({
+export const InputNumberPlus = defineComponent({
+  name: 'InputNumberPlus',
   props: {
     value: { type: Number },
     min: { type: Number },
     max: { type: Number }
   },
   emits: {
-    'change': (value: string | number | [number, number]) => true
+    change: (value: string | number | [number, number]) => true
   },
   setup(props, { emit }) {
     const { value, min, max } = toRefs(props)
@@ -24,7 +25,7 @@ const InputNumberPlus = defineComponent({
       emit('change', value)
     }
 
-    return () =>
+    return () => (
       <div style={{ display: 'flex', width: 200 }}>
         <Slider
           style={{ flex: '0 0 120px', marginRight: 12 }}
@@ -41,7 +42,6 @@ const InputNumberPlus = defineComponent({
           style={{ flex: 1 }}
         />
       </div>
+    )
   }
 })
-
-export default InputNumberPlus

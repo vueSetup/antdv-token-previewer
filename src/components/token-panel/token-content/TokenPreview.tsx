@@ -3,8 +3,8 @@ import type { GlobalToken } from 'ant-design-vue/es/theme'
 import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
 import type { PropType } from 'vue'
 import { defineComponent, toRefs } from 'vue'
-import getColorBgImg from '../utils/getColorBgImg'
-import getDesignToken from '../utils/getDesignToken'
+import getColorBgImg from '../../utils/getColorBgImg'
+import getDesignToken from '../../utils/getDesignToken'
 
 export type TokenPreviewProps = {
   theme: ThemeConfig
@@ -12,11 +12,12 @@ export type TokenPreviewProps = {
   type?: string
 }
 
-const TokenPreview = defineComponent({
+export const TokenPreview = defineComponent({
+  name: 'TokenPreview',
   props: {
     theme: { type: Object as PropType<ThemeConfig>, required: true },
     tokenName: { type: String, required: true },
-    type: { type: String },
+    type: { type: String }
   },
   setup(props) {
     const { theme, tokenName, type } = toRefs(props)
@@ -32,15 +33,17 @@ const TokenPreview = defineComponent({
             background: `${getColorBgImg(isDark)} 0% 0% / 28px`,
             width: '100%',
             height: '100%',
-            position: 'relative',
+            position: 'relative'
           }}
         >
           <div
             style={{
               height: '100%',
               width: '100%',
-              backgroundColor: getDesignToken(theme.value)[tokenName.value as keyof GlobalToken],
-              transition: 'background-color 0.2s',
+              backgroundColor: getDesignToken(theme.value)[
+                tokenName.value as keyof GlobalToken
+              ],
+              transition: 'background-color 0.2s'
             }}
           />
         </div>
@@ -58,7 +61,7 @@ const TokenPreview = defineComponent({
             justifyContent: 'center',
             fontWeight: 700,
             overflow: 'hidden',
-            background: `${getColorBgImg(isDark)} 0% 0% / 28px`,
+            background: `${getColorBgImg(isDark)} 0% 0% / 28px`
           }}
         >
           <span
@@ -68,7 +71,7 @@ const TokenPreview = defineComponent({
               ],
               lineHeight: getDesignToken(theme.value)[tokenName.value as keyof GlobalToken],
               background: '#fff2f0',
-              paddingInline: 8,
+              paddingInline: 8
             }}
           >
             Aa
@@ -85,7 +88,7 @@ const TokenPreview = defineComponent({
             height: '100%',
             position: 'relative',
             overflow: 'hidden',
-            background: `${getColorBgImg(isDark)} 0% 0% / 28px`,
+            background: `${getColorBgImg(isDark)} 0% 0% / 28px`
           }}
         >
           <div
@@ -94,7 +97,7 @@ const TokenPreview = defineComponent({
               height: '100%',
               overflow: 'hidden',
               background: '#fff1b8',
-              transform: 'translate(10%, 10%) scale(0.8)',
+              transform: 'translate(10%, 10%) scale(0.8)'
             }}
           >
             <div
@@ -103,7 +106,7 @@ const TokenPreview = defineComponent({
                 marginTop: margin,
                 width: `calc(100% - ${margin}px)`,
                 height: `calc(100% - ${margin}px)`,
-                background: '#bae0ff',
+                background: '#bae0ff'
               }}
             />
           </div>
@@ -119,7 +122,7 @@ const TokenPreview = defineComponent({
             height: '100%',
             position: 'relative',
             overflow: 'hidden',
-            background: `${getColorBgImg(isDark)} 0% 0% / 28px`,
+            background: `${getColorBgImg(isDark)} 0% 0% / 28px`
           }}
         >
           <div
@@ -130,14 +133,14 @@ const TokenPreview = defineComponent({
               background: '#d9f7be',
               transform: 'translate(10%, 10%) scale(0.8)',
               paddingLeft: padding,
-              paddingTop: padding,
+              paddingTop: padding
             }}
           >
             <div
               style={{
                 width: `100%`,
                 height: `100%`,
-                background: '#bae0ff',
+                background: '#bae0ff'
               }}
             />
           </div>
@@ -152,7 +155,7 @@ const TokenPreview = defineComponent({
             height: '100%',
             position: 'relative',
             overflow: 'hidden',
-            background: `${getColorBgImg(isDark)} 0% 0% / 28px`,
+            background: `${getColorBgImg(isDark)} 0% 0% / 28px`
           }}
         >
           <div
@@ -163,7 +166,9 @@ const TokenPreview = defineComponent({
               transform: 'translate(30%, 30%)',
               border: '2px solid rgba(0,0,0,0.45)',
               background: '#fff',
-              borderRadius: getDesignToken(theme.value)[tokenName.value as keyof GlobalToken],
+              borderRadius: getDesignToken(theme.value)[
+                tokenName.value as keyof GlobalToken
+              ]
             }}
           />
         </div>
@@ -180,7 +185,7 @@ const TokenPreview = defineComponent({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: `${getColorBgImg(isDark)} 0% 0% / 28px`,
+            background: `${getColorBgImg(isDark)} 0% 0% / 28px`
           }}
         >
           <div
@@ -190,14 +195,12 @@ const TokenPreview = defineComponent({
               borderRadius: 6,
               background: '#fff',
               border: '1px solid #d9d9d9',
-              boxShadow: getDesignToken(theme.value)[tokenName.value as keyof GlobalToken],
+              boxShadow: getDesignToken(theme.value)[tokenName.value as keyof GlobalToken]
             }}
           />
         </div>
       )
     }
     return null
-  },
+  }
 })
-
-export default TokenPreview
