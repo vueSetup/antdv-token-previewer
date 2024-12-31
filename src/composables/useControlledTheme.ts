@@ -5,8 +5,8 @@ import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
 import type { Ref } from 'vue'
 import { watchEffect, ref, computed } from 'vue'
 import type { MutableTheme, Theme } from '../components/interface'
-import deepUpdateObj from '../components/utils/deepUpdateObj'
-import getValueByPath from '../components/utils/getValueByPath'
+import deepUpdateObj from '../utils/deepUpdateObj'
+import getValueByPath from '../utils/getValueByPath'
 
 const { defaultAlgorithm, darkAlgorithm, compactAlgorithm } = antTheme
 
@@ -14,13 +14,13 @@ export type ThemeCode = 'default' | 'dark' | 'compact'
 export const themeMap: Record<ThemeCode, DerivativeFunc<SeedToken, MapToken>> = {
   default: defaultAlgorithm,
   dark: darkAlgorithm,
-  compact: compactAlgorithm,
+  compact: compactAlgorithm
 }
 
 export type SetThemeState = (
   theme: Theme,
   modifiedPath: string[],
-  updated?: boolean,
+  updated?: boolean
 ) => void
 
 export type UseControlledTheme = (options: {
@@ -38,7 +38,7 @@ export type UseControlledTheme = (options: {
 const useControlledTheme: UseControlledTheme = ({
   theme: customTheme,
   defaultTheme,
-  onChange,
+  onChange
 }) => {
   const theme = ref<Theme>(customTheme?.value ?? defaultTheme)
   console.log('useControlledTheme:theme', theme.value)
@@ -60,7 +60,7 @@ const useControlledTheme: UseControlledTheme = ({
       if (Object.keys(newToken).length > 0) {
         result.config = {
           ...newTheme.config,
-          token: newToken,
+          token: newToken
         }
       } else {
         delete result.config.token
@@ -113,14 +113,14 @@ const useControlledTheme: UseControlledTheme = ({
       onThemeChange: (config, path) => onSetTheme({ ...theme.value, config }, path),
       onReset: onResetTheme,
       onAbort: onAbortTheme,
-      getCanReset: getCanReset(themeRef.value?.config, theme.value.config),
+      getCanReset: getCanReset(themeRef.value?.config, theme.value.config)
     })),
     infoFollowPrimary,
     onInfoFollowPrimaryChange: onInfoFollowPrimaryChange,
     updateRef: () => {
       themeRef.value = theme.value
       forceUpdate()
-    },
+    }
   }
 }
 

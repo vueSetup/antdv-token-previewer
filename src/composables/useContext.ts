@@ -1,11 +1,11 @@
 import type { DefineComponent, VNode, PropType, InjectionKey } from 'vue'
 import { provide, inject, readonly, defineComponent } from 'vue'
 
-// export type CreateContext<T> = DefineComponent<
-//   { value: T },
-//   () => VNode | VNode[] | undefined,
-//   any
-// >
+export type CreateContext<T> = DefineComponent<
+  { value: T },
+  () => VNode | VNode[] | undefined,
+  any
+>
 
 export const createContext = <T>(
   contextInjectKey: InjectionKey<T> = Symbol(),
@@ -20,8 +20,7 @@ export const createContext = <T>(
       provide(contextInjectKey, readonly(props.value as Record<string, unknown>) as T)
       return () => slots.default?.()
     },
-  })
-//   as CreateContext<T>
+  }) as CreateContext<T>
 
 export const useContext = <T>(
   contextInjectKey: string | InjectionKey<T> = Symbol(),

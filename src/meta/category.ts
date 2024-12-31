@@ -1,6 +1,6 @@
-import type { AliasToken } from '../interface';
-import type { TokenTree } from './interface';
-import { seedRelatedAlias, seedRelatedMap } from './TokenRelation';
+import type { AliasToken } from '../components/interface'
+import type { TokenTree } from './interface'
+import { seedRelatedAlias, seedRelatedMap } from './TokenRelation'
 
 const category: TokenTree<keyof AliasToken> = [
   {
@@ -18,7 +18,7 @@ const category: TokenTree<keyof AliasToken> = [
         descEn: '',
         seedToken: ['colorPrimary'],
         mapToken: seedRelatedMap.colorPrimary,
-        aliasToken: seedRelatedAlias.colorPrimary,
+        aliasToken: seedRelatedAlias.colorPrimary
       },
       {
         key: 'successColor',
@@ -29,7 +29,7 @@ const category: TokenTree<keyof AliasToken> = [
         descEn: '',
         seedToken: ['colorSuccess'],
         mapToken: seedRelatedMap.colorSuccess,
-        aliasToken: seedRelatedAlias.colorSuccess,
+        aliasToken: seedRelatedAlias.colorSuccess
       },
       {
         key: 'warningColor',
@@ -40,7 +40,7 @@ const category: TokenTree<keyof AliasToken> = [
         descEn: '',
         seedToken: ['colorWarning'],
         mapToken: seedRelatedMap.colorWarning,
-        aliasToken: seedRelatedAlias.colorWarning,
+        aliasToken: seedRelatedAlias.colorWarning
       },
       {
         key: 'errorColor',
@@ -51,7 +51,7 @@ const category: TokenTree<keyof AliasToken> = [
         descEn: '',
         seedToken: ['colorError'],
         mapToken: seedRelatedMap.colorError,
-        aliasToken: seedRelatedAlias.colorError,
+        aliasToken: seedRelatedAlias.colorError
       },
       {
         key: 'infoColor',
@@ -62,7 +62,7 @@ const category: TokenTree<keyof AliasToken> = [
         descEn: '',
         seedToken: ['colorInfo'],
         mapToken: seedRelatedMap.colorInfo,
-        aliasToken: seedRelatedAlias.colorInfo,
+        aliasToken: seedRelatedAlias.colorInfo
       },
       {
         key: 'linkColor',
@@ -73,7 +73,7 @@ const category: TokenTree<keyof AliasToken> = [
         descEn: '',
         seedToken: ['colorLink'],
         mapToken: seedRelatedMap.colorLink,
-        aliasToken: seedRelatedAlias.colorLink,
+        aliasToken: seedRelatedAlias.colorLink
       },
       {
         key: 'neutralColor',
@@ -83,17 +83,15 @@ const category: TokenTree<keyof AliasToken> = [
         desc: '中性色主要被大量的应用在界面的文字、背景、边框和填充的 4 种场景。合理地选择中性色能够令页面信息具备良好的主次关系，助力阅读体验。',
         descEn: '',
         seedToken: ['colorTextBase', 'colorBgBase'],
-        mapToken: seedRelatedMap.colorTextBase?.concat(
-          seedRelatedMap.colorBgBase ?? [],
-        ),
+        mapToken: seedRelatedMap.colorTextBase?.concat(seedRelatedMap.colorBgBase ?? []),
         aliasToken: seedRelatedAlias.colorTextBase?.concat(
-          seedRelatedAlias.colorBgBase ?? [],
+          seedRelatedAlias.colorBgBase ?? []
         ),
         aliasTokenDescription:
           '你可以利用 Alias Token 来精准控制部分组件的效果。例如 Input 、InputNumber、Select 等Control 类组件都共享了相同的 controlXX token 。只需修改值，即可实现不改变 Button 的情况下，修改 Control 类组件的效果。',
-        mapTokenGroups: ['text', 'border', 'fill', 'background'],
-      },
-    ],
+        mapTokenGroups: ['text', 'border', 'fill', 'background']
+      }
+    ]
   },
   {
     name: '尺寸',
@@ -125,9 +123,9 @@ const category: TokenTree<keyof AliasToken> = [
               'fontSizeHeading2',
               'fontSizeHeading3',
               'fontSizeHeading4',
-              'fontSizeHeading5',
+              'fontSizeHeading5'
             ],
-            aliasToken: ['fontSizeIcon'],
+            aliasToken: ['fontSizeIcon']
           },
           {
             key: 'lineHeight',
@@ -144,10 +142,10 @@ const category: TokenTree<keyof AliasToken> = [
               'lineHeightHeading2',
               'lineHeightHeading3',
               'lineHeightHeading4',
-              'lineHeightHeading5',
-            ],
-          },
-        ],
+              'lineHeightHeading5'
+            ]
+          }
+        ]
       },
       {
         key: 'spacing',
@@ -172,8 +170,8 @@ const category: TokenTree<keyof AliasToken> = [
               'marginMD',
               'marginLG',
               'marginXL',
-              'marginXXL',
-            ],
+              'marginXXL'
+            ]
           },
           {
             key: 'padding',
@@ -189,7 +187,7 @@ const category: TokenTree<keyof AliasToken> = [
               'padding',
               'paddingMD',
               'paddingLG',
-              'paddingXL',
+              'paddingXL'
             ],
             aliasToken: [
               'paddingContentHorizontal',
@@ -197,12 +195,12 @@ const category: TokenTree<keyof AliasToken> = [
               'paddingContentHorizontalSM',
               'paddingContentVerticalSM',
               'paddingContentHorizontalLG',
-              'paddingContentVerticalLG',
-            ],
-          },
-        ],
-      },
-    ],
+              'paddingContentVerticalLG'
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     name: '风格',
@@ -218,12 +216,7 @@ const category: TokenTree<keyof AliasToken> = [
         desc: '',
         descEn: '',
         seedToken: ['borderRadius'],
-        mapToken: [
-          'borderRadiusXS',
-          'borderRadiusSM',
-          'borderRadius',
-          'borderRadiusLG',
-        ],
+        mapToken: ['borderRadiusXS', 'borderRadiusSM', 'borderRadius', 'borderRadiusLG']
       },
       {
         key: 'boxShadow',
@@ -232,7 +225,7 @@ const category: TokenTree<keyof AliasToken> = [
         nameEn: 'Shadow',
         desc: '',
         descEn: '',
-        mapToken: ['boxShadow', 'boxShadowSecondary'],
+        mapToken: ['boxShadow', 'boxShadowSecondary']
       },
       {
         key: 'other',
@@ -241,10 +234,10 @@ const category: TokenTree<keyof AliasToken> = [
         nameEn: 'Wireframe',
         desc: '',
         descEn: '',
-        seedToken: ['wireframe'],
-      },
-    ],
-  },
-];
+        seedToken: ['wireframe']
+      }
+    ]
+  }
+]
 
-export default category;
+export default category

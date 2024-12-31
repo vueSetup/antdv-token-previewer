@@ -2,9 +2,9 @@ import { defineComponent, computed, toRefs, type PropType } from 'vue'
 import { Collapse } from 'ant-design-vue'
 import { CaretRightOutlined } from '@ant-design/icons-vue'
 import { MapTokenCollapseContent } from './MapTokenCollapseContent'
-import { useLocale, type Locale } from '../../locale'
+import { useLocale, type Locale } from '../../../locale'
 import type { MutableTheme, SelectedToken } from '../../interface'
-import type { TokenGroup } from '../../meta'
+import type { TokenGroup } from '../../../meta'
 
 const { Panel } = Collapse
 

@@ -2,10 +2,10 @@ import { defineComponent, toRefs, type PropType } from 'vue'
 import { TokenPreview } from './TokenPreview'
 import { SeedTokenPreview } from './SeedTokenPreview'
 import { ResetTokenButton } from './ResetTokenButton'
-import { useLocale } from '../../locale'
-import getDesignToken from '../../utils/getDesignToken'
+import { useLocale } from '../../../locale'
+import getDesignToken from '../../../utils/getDesignToken'
 import tokenMeta from 'ant-design-vue/es/version/token-meta.json'
-import { HIGHLIGHT_COLOR } from '../../utils/constants'
+import { HIGHLIGHT_COLOR } from '../../../utils/constants'
 import type { AliasToken, MutableTheme, SelectedToken } from '../../interface'
 
 export type MapTokenCollapseContentProps = {

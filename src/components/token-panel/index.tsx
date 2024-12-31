@@ -8,8 +8,8 @@ import {
 } from 'vue'
 import { Anchor } from 'ant-design-vue'
 import { TokenContent } from './token-content'
-import { tokenCategory, type TokenGroup } from '../meta'
-import { useLocale } from '../locale'
+import { tokenCategory, type TokenGroup } from '../../meta'
+import { useLocale } from '../../locale'
 import { getPrefixCls, useStyle } from './style'
 import type { Theme, SelectedToken } from '../interface'
 

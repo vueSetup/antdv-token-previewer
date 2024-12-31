@@ -4,7 +4,7 @@ import { InputNumberPlus } from './InputNumberPlus'
 import { ColorPicker } from '../../color-picker'
 import { debounce } from 'lodash'
 import seed from 'ant-design-vue/es/theme/themes/seed'
-import getDesignToken from '../../utils/getDesignToken'
+import getDesignToken from '../../../utils/getDesignToken'
 import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
 import type { MutableTheme } from '../../interface'
 

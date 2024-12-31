@@ -2,16 +2,16 @@ import {
   CaretRightOutlined,
   QuestionCircleOutlined,
   RightOutlined,
-  ShrinkOutlined,
+  ShrinkOutlined
 } from '@ant-design/icons-vue'
 import { Button, Collapse, Empty, Tooltip } from 'ant-design-vue'
 import type { MutableTheme, AliasToken, SelectedToken } from '../interface'
 import type { PropType } from 'vue'
 import { defineComponent, toRefs, ref, computed, watchEffect } from 'vue'
 import { Pick } from '../icons'
-import { mapRelatedAlias, seedRelatedAlias } from '../meta/TokenRelation'
-import makeStyle from '../utils/makeStyle'
-import { getRelatedComponents } from '../utils/statistic'
+import { mapRelatedAlias, seedRelatedAlias } from '../../meta/TokenRelation'
+import makeStyle from '../../utils/makeStyle'
+import { getRelatedComponents } from '../../utils/statistic'
 import TokenDetail from './TokenDetail'
 
 const { Panel } = Collapse
@@ -31,22 +31,22 @@ const useStyle = makeStyle('TokenPanelProAlias', (token) => ({
 
       '&-text': {
         fontSize: token.fontSizeLG,
-        fontWeight: token.fontWeightStrong,
-      },
+        fontWeight: token.fontWeightStrong
+      }
     },
 
     [`${token.componentCls}-description`]: {
       color: token.colorTextTertiary,
       fontSize: token.fontSizeSM,
       lineHeight: token.lineHeightSM,
-      padding: '0 16px 12px',
+      padding: '0 16px 12px'
     },
 
     [`.token-panel-pro-alias-collapse${token.rootCls}-collapse`]: {
       [`> ${token.rootCls}-collapse-item > ${token.rootCls}-collapse-content > ${token.rootCls}-collapse-content-box`]:
-      {
-        paddingBlock: '0',
-      },
+        {
+          paddingBlock: '0'
+        },
 
       [`> ${token.rootCls}-collapse-item`]: {
         [`> ${token.rootCls}-collapse-header`]: {
@@ -62,15 +62,15 @@ const useStyle = makeStyle('TokenPanelProAlias', (token) => ({
               lineHeight: '16px',
               padding: '0 6px',
               backgroundColor: token.colorFillAlter,
-              borderRadius: 999,
-            },
+              borderRadius: 999
+            }
           },
 
           '.token-panel-pro-token-picked': {
-            color: token.colorPrimary,
-          },
-        },
-      },
+            color: token.colorPrimary
+          }
+        }
+      }
     },
 
     [`${token.componentCls}-expand`]: {
@@ -83,8 +83,8 @@ const useStyle = makeStyle('TokenPanelProAlias', (token) => ({
 
       '&:hover': {
         [`${token.componentCls}-expand-handler`]: {
-          opacity: 1,
-        },
+          opacity: 1
+        }
       },
 
       [`${token.componentCls}-expand-handler`]: {
@@ -102,10 +102,10 @@ const useStyle = makeStyle('TokenPanelProAlias', (token) => ({
         transition: 'box-shadow 0.2s',
 
         '&:hover': {
-          boxShadow: token.boxShadow,
-        },
-      },
-    },
+          boxShadow: token.boxShadow
+        }
+      }
+    }
   }
 }))
 
@@ -127,11 +127,11 @@ const AliasPanel = defineComponent({
     activeSeeds: { type: Array as PropType<string[]> },
     selectedTokens: { type: Object as PropType<SelectedToken> },
     open: { type: Boolean },
-    description: { type: String },
+    description: { type: String }
   },
   emits: {
     'token-select': (token: string, type: keyof SelectedToken) => true,
-    'open-change': (open: boolean) => true,
+    'open-change': (open: boolean) => true
   },
   setup(props, { attrs, emit }) {
     const prefixCls = 'token-panel-pro-color-alias'
@@ -142,7 +142,7 @@ const AliasPanel = defineComponent({
       activeSeeds,
       selectedTokens,
       open: customOpen,
-      description,
+      description
     } = toRefs(props)
 
     const open = ref(customOpen.value ?? true)
@@ -155,16 +155,16 @@ const AliasPanel = defineComponent({
     const shownAlias = computed(() =>
       selectedTokens.value?.map?.length
         ? Array.from(
-          new Set(
-            selectedTokens.value?.map.reduce<string[]>((result, map) => {
-              return result.concat(...(mapRelatedAlias[map] ?? []))
-            }, []),
-          ),
-        )
+            new Set(
+              selectedTokens.value?.map.reduce<string[]>((result, map) => {
+                return result.concat(...(mapRelatedAlias[map] ?? []))
+              }, [])
+            )
+          )
         : activeSeeds.value?.reduce<(keyof AliasToken)[]>(
-          (result, item) => result.concat(seedRelatedAlias[item] ?? []),
-          [],
-        ),
+            (result, item) => result.concat(seedRelatedAlias[item] ?? []),
+            []
+          )
     )
 
     const onTokenSelect = (token: string, type: keyof SelectedToken) => {
@@ -173,10 +173,7 @@ const AliasPanel = defineComponent({
 
     return () =>
       wrapSSR(
-        <div
-          {...attrs}
-          class={[prefixCls, hashId.value]}
-        >
+        <div {...attrs} class={[prefixCls, hashId.value]}>
           {open.value ? (
             <>
               <div class={`${prefixCls}-title`}>
@@ -231,8 +228,8 @@ const AliasPanel = defineComponent({
                                 'token-panel-pro-token-pick',
                                 {
                                   'token-panel-pro-token-picked':
-                                    selectedTokens.value?.alias?.includes(aliasToken),
-                                },
+                                    selectedTokens.value?.alias?.includes(aliasToken)
+                                }
                               ]}
                             />
                           </div>
@@ -269,9 +266,9 @@ const AliasPanel = defineComponent({
               </div>
             </div>
           )}
-        </div>,
+        </div>
       )
-  },
+  }
 })
 
 export default AliasPanel

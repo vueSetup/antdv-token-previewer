@@ -14,11 +14,11 @@ import { SeedTokenPreview } from './SeedTokenPreview'
 import { ResetTokenButton } from './ResetTokenButton'
 import { IconSwitch } from './icon-switch'
 import { themeMap, type ThemeCode } from '../../../composables/useControlledTheme'
-import { HIGHLIGHT_COLOR } from '../../utils/constants'
-import { useLocale } from '../../locale'
+import { HIGHLIGHT_COLOR } from '../../../utils/constants'
+import { useLocale } from '../../../locale'
 import { getPrefixCls, useStyle } from './style'
 import type { AliasToken, MutableTheme, SelectedToken } from '../../interface'
-import type { TokenCategory } from '../../meta'
+import type { TokenCategory } from '../../../meta'
 
 type TokenMeta = Record<
   string,

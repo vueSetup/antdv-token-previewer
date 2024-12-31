@@ -1,4 +1,4 @@
-import makeStyle from '../utils/makeStyle'
+import makeStyle from '../../utils/makeStyle'
 
 export const defaultPrefixCls = 'antdv'
 
@@ -17,7 +17,7 @@ export const useStyle = makeStyle('GlobalTokenEditor', (token) => ({
       backgroundImage:
         'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0, 0, 0, 0.02) 100%)',
       display: 'flex',
-      transition: 'all 0.3s',
-    },
-  },
+      transition: 'all 0.3s'
+    }
+  }
 }))
