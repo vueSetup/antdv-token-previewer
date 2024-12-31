@@ -1,61 +1,61 @@
-import type { ComponentTokenMap } from 'antd/es/theme/interface';
+import type { ComponentTokenMap } from 'ant-design-vue/es/theme/interface'
 
 export interface TokenMeta {
-  type: string;
+  type: string
 
   // Name
-  name: string;
-  nameEn: string;
+  name: string
+  nameEn: string
 
   // Description
-  desc: string;
-  descEn: string;
+  desc: string
+  descEn: string
 
   // Source
-  source: 'seed' | 'map' | 'alias' | 'custom' | keyof ComponentTokenMap;
+  source: 'seed' | 'map' | 'alias' | 'custom' | keyof ComponentTokenMap
 }
 
-export type TokenMetaMap = Record<string, TokenMeta>;
+export type TokenMetaMap = Record<string, TokenMeta>
 
 // 二级分类，如品牌色、中性色等
 export type TokenGroup<T> = {
-  key: string;
+  key: string
 
   // Group name
-  name: string;
-  nameEn: string;
+  name: string
+  nameEn: string
 
   // Description
-  desc: string;
-  descEn: string;
+  desc: string
+  descEn: string
 
   // Type
-  type?: string;
+  type?: string
 
   // Seed token
-  seedToken?: T[];
-  mapToken?: T[];
-  aliasToken?: T[];
+  seedToken?: T[]
+  mapToken?: T[]
+  aliasToken?: T[]
 
   // Children Group
-  groups?: TokenGroup<T>[];
+  groups?: TokenGroup<T>[]
 
   // Extra
-  mapTokenGroups?: string[];
-  aliasTokenDescription?: string;
-};
+  mapTokenGroups?: string[]
+  aliasTokenDescription?: string
+}
 
 // 一级分类，如颜色、尺寸等
 export type TokenCategory<T> = {
   // Category name
-  name: string;
-  nameEn: string;
+  name: string
+  nameEn: string
 
   // Description
-  desc: string;
-  descEn: string;
+  desc: string
+  descEn: string
 
-  groups: TokenGroup<T>[];
-};
+  groups: TokenGroup<T>[]
+}
 
-export type TokenTree<T extends string = string> = TokenCategory<T>[];
+export type TokenTree<T extends string = string> = TokenCategory<T>[]

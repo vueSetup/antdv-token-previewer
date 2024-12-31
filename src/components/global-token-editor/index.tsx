@@ -1,5 +1,5 @@
 import { defineComponent, ref, type PropType } from 'vue'
-import { default as TokenPanelPro, type TokenPanelProps } from '../token-panel-pro'
+import { TokenPanel, type TokenPanelProps } from '../token-panel'
 import type { SelectedToken, Theme } from '../interface'
 import { getPrefixCls, useStyle } from './style'
 
@@ -53,7 +53,7 @@ export const GlobalTokenEditor = defineComponent({
     return () => (
       <div class={[prefixCls, hashId.value]}>
         <div style={{ flex: `0 0 480px` }} class={`${prefixCls}-token-panel-wrapper`}>
-          <TokenPanelPro
+          <TokenPanel
             theme={props.theme}
             style={{ flex: 1 }}
             selectedTokens={selectedTokens.value}
