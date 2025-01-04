@@ -8,6 +8,7 @@ export interface IconSwitchProps {
 
 export const IconSwitch = defineComponent({
   name: 'IconSwitch',
+  inheritAttrs: false,
   props: {
     leftChecked: { type: Boolean }
   },

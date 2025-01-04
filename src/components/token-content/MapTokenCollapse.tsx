@@ -2,9 +2,9 @@ import { defineComponent, computed, toRefs, type PropType } from 'vue'
 import { Collapse } from 'ant-design-vue'
 import { CaretRightOutlined } from '@ant-design/icons-vue'
 import { MapTokenCollapseContent } from './MapTokenCollapseContent'
-import { useLocale, type Locale } from '../../../locale'
-import type { MutableTheme, SelectedToken } from '../../interface'
-import type { TokenGroup } from '../../../meta'
+import { useLocale, type Locale } from '../../locale'
+import type { MutableTheme, SelectedToken } from '../interface'
+import type { TokenGroup } from '../../meta'
 
 const { Panel } = Collapse
 
@@ -18,7 +18,9 @@ export type MapTokenCollapseProps = {
 
 export const MapTokenCollapse = defineComponent({
   name: 'MapTokenCollapse',
+  inheritAttrs: false,
   props: {
+    prefixCls: { type: String, required: true },
     theme: { type: Object as PropType<MutableTheme>, required: true },
     group: { type: Object as PropType<TokenGroup<string>>, required: true },
     selectedTokens: { type: Object as PropType<SelectedToken> },
@@ -27,7 +29,7 @@ export const MapTokenCollapse = defineComponent({
   emits: {
     tokenSelect: (token: string | string[], type: keyof SelectedToken) => true
   },
-  setup(props, { emit }) {
+  setup(props, { attrs, emit }) {
     const { theme, group, selectedTokens, groupFn } = toRefs(props)
 
     const locale = useLocale()
@@ -50,7 +52,7 @@ export const MapTokenCollapse = defineComponent({
     if (groupFn.value) {
       return () => (
         <Collapse
-          class="token-panel-pro-grouped-map-collapse"
+          class={[`${props.prefixCls}-grouped-map-collapse`, attrs.class]}
           defaultActiveKey={Object.keys(groupedTokens)}
           expandIconPosition="end"
           expandIcon={({ isActive }) => (
@@ -60,6 +62,7 @@ export const MapTokenCollapse = defineComponent({
           {(group.value.mapTokenGroups ?? Object.keys(groupedTokens)).map((key) => (
             <Panel key={key} header={locale.value[key as keyof Locale] ?? ''}>
               <MapTokenCollapseContent
+                prefixCls={props.prefixCls}
                 mapTokens={groupedTokens.value[key]}
                 theme={theme.value}
                 selectedTokens={selectedTokens.value}
@@ -75,7 +78,7 @@ export const MapTokenCollapse = defineComponent({
     if (group.value.groups) {
       return (
         <Collapse
-          class="token-panel-pro-grouped-map-collapse"
+          class={[`${props.prefixCls}-grouped-map-collapse`, attrs.class]}
           defaultActiveKey={group.value.groups.map((item) => item.key)}
           expandIconPosition="end"
           expandIcon={({ isActive }) => (
@@ -85,6 +88,8 @@ export const MapTokenCollapse = defineComponent({
           {group.value.groups.map((item) => (
             <Panel key={item.key} header={item.name}>
               <MapTokenCollapseContent
+                prefixCls={props.prefixCls}
+                class={[attrs.class]}
                 mapTokens={item.mapToken}
                 theme={theme.value}
                 selectedTokens={selectedTokens.value}
@@ -99,11 +104,12 @@ export const MapTokenCollapse = defineComponent({
 
     return () => (
       <MapTokenCollapseContent
-        mapTokens={group.value.mapToken ?? []}
+        prefixCls={props.prefixCls}
+        type={group.value.type}
         theme={theme.value}
         selectedTokens={selectedTokens.value}
+        mapTokens={group.value.mapToken ?? []}
         onTokenSelect={onTokenSelect}
-        type={group.value.type}
       />
     )
   }

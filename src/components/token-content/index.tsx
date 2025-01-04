@@ -8,17 +8,17 @@ import {
 } from 'ant-design-vue'
 import tokenMeta from 'ant-design-vue/es/version/token-meta.json'
 import { CaretRightOutlined, ExpandOutlined } from '@ant-design/icons-vue'
-import { Light, DarkTheme, CompactTheme } from '../../icons'
+import { Light, DarkTheme, CompactTheme } from '../icons'
 import { MapTokenCollapse } from './MapTokenCollapse'
 import { SeedTokenPreview } from './SeedTokenPreview'
 import { ResetTokenButton } from './ResetTokenButton'
 import { IconSwitch } from './icon-switch'
-import { themeMap, type ThemeCode } from '../../../composables/useControlledTheme'
-import { HIGHLIGHT_COLOR } from '../../../utils/constants'
-import { useLocale } from '../../../locale'
+import { themeMap, type ThemeCode } from '../../composables/useControlledTheme'
+import { HIGHLIGHT_COLOR } from '../../utils/constants'
+import { useLocale } from '../../locale'
 import { getPrefixCls, useStyle } from './style'
-import type { AliasToken, MutableTheme, SelectedToken } from '../../interface'
-import type { TokenCategory } from '../../../meta'
+import type { AliasToken, MutableTheme, SelectedToken } from '../interface'
+import type { TokenCategory } from '../../meta'
 
 type TokenMeta = Record<
   string,
@@ -50,6 +50,7 @@ const groupMapToken = (token: string): string => {
 
 export const TokenContent = defineComponent({
   name: 'TokenContent',
+  inheritAttrs: false,
   props: {
     id: { type: String, required: true },
     category: { type: Object as PropType<TokenCategory<string>>, required: true },
@@ -65,7 +66,7 @@ export const TokenContent = defineComponent({
   },
   setup(props, { emit }) {
     // const prefixCls = 'token-panel-pro'
-    const prefixCls = getPrefixCls('token-content')
+    const prefixCls = getPrefixCls('token-panel-content')
     const [wrapSSR, hashId] = useStyle(prefixCls)
 
     const { id, category, theme, selectedTokens, infoFollowPrimary } = toRefs(props)
@@ -118,7 +119,7 @@ export const TokenContent = defineComponent({
     }
 
     // TODO :: Context Provider
-    const advanced = false
+    const advanced = true
 
     return () =>
       wrapSSR(
@@ -185,7 +186,7 @@ export const TokenContent = defineComponent({
               theme={{
                 components: {
                   Collapse: {
-                    colorBorder: token.value.colorSplit
+                    colorBorder: token.value.colorSplit // ???
                   }
                 }
               }}
@@ -306,6 +307,7 @@ export const TokenContent = defineComponent({
                                     </div>
                                   </div>
                                   <SeedTokenPreview
+                                    prefixCls={prefixCls}
                                     theme={theme.value}
                                     tokenName={seedToken}
                                     disabled={
@@ -374,6 +376,8 @@ export const TokenContent = defineComponent({
                                 key={group.key}
                               >
                                 <MapTokenCollapse
+                                  prefixCls={prefixCls}
+                                  class={[hashId.value]}
                                   group={group}
                                   theme={theme.value}
                                   selectedTokens={selectedTokens.value}

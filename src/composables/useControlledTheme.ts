@@ -41,7 +41,6 @@ const useControlledTheme: UseControlledTheme = ({
   onChange
 }) => {
   const theme = ref<Theme>(customTheme?.value ?? defaultTheme)
-  console.log('useControlledTheme:theme', theme.value)
   const infoFollowPrimary = ref<boolean>(false)
   const themeRef = ref<Theme>(theme.value)
   const renderHolder = ref(0)
@@ -106,7 +105,7 @@ const useControlledTheme: UseControlledTheme = ({
       theme.value = getNewTheme(theme.value, true)
     }
   }
-  console.log('useControlledTheme:theme', theme.value)
+
   return {
     theme: computed(() => ({
       ...theme.value,

@@ -1,4 +1,4 @@
-import makeStyle from '../../../../utils/makeStyle'
+import makeStyle from '../../../utils/makeStyle'
 
 export const defaultPrefixCls = 'antdv'
 

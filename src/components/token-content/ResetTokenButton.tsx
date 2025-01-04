@@ -1,7 +1,7 @@
 import { Typography } from 'ant-design-vue'
 import { defineComponent, toRefs, type PropType } from 'vue'
-import type { AliasToken, MutableTheme } from '../../interface'
-import { useLocale } from '../../../locale'
+import type { AliasToken, MutableTheme } from '../interface'
+import { useLocale } from '../../locale'
 
 export type ResetTokenButtonProps = {
   theme: MutableTheme
@@ -10,6 +10,7 @@ export type ResetTokenButtonProps = {
 
 export const ResetTokenButton = defineComponent({
   name: 'ResetTokenButton',
+  inheritAttrs: false,
   props: {
     theme: { type: Object as PropType<MutableTheme>, required: true },
     tokenName: { type: String, required: true }

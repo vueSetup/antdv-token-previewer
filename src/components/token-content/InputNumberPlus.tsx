@@ -10,6 +10,7 @@ export type InputNumberPlusProps = {
 
 export const InputNumberPlus = defineComponent({
   name: 'InputNumberPlus',
+  inheritAttrs: false,
   props: {
     value: { type: Number },
     min: { type: Number },

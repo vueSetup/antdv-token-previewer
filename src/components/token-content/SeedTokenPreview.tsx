@@ -1,12 +1,12 @@
 import { computed, defineComponent, ref, toRefs, watchEffect, type PropType } from 'vue'
 import { Input, Popover, Switch } from 'ant-design-vue'
 import { InputNumberPlus } from './InputNumberPlus'
-import { ColorPicker } from '../../color-picker'
+import { ColorPicker } from '../color-picker'
 import { debounce } from 'lodash'
 import seed from 'ant-design-vue/es/theme/themes/seed'
-import getDesignToken from '../../../utils/getDesignToken'
+import getDesignToken from '../../utils/getDesignToken'
 import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
-import type { MutableTheme } from '../../interface'
+import type { MutableTheme } from '../interface'
 
 export type SeedTokenProps = {
   theme: MutableTheme
@@ -16,12 +16,14 @@ export type SeedTokenProps = {
 
 export const SeedTokenPreview = defineComponent({
   name: 'SeedTokenPreview',
+  inheritAttrs: false,
   props: {
+    prefixCls: { type: String, required: true },
     theme: { type: Object as PropType<MutableTheme>, required: true },
     tokenName: { type: String, required: true },
     disabled: { type: Boolean }
   },
-  setup(props, { slots }) {
+  setup(props, { slots, attrs }) {
     const { theme, tokenName, disabled } = toRefs(props)
 
     const getSeedValue = (config: ThemeConfig, token: string) => {
@@ -58,7 +60,7 @@ export const SeedTokenPreview = defineComponent({
     }
 
     // const tokenPath = computed(() => ['token', tokenName.value]);
-    const tokenValue = ref(getSeedValue(theme.value.config, tokenName.value))
+    const tokenValue = ref<number>(getSeedValue(theme.value.config, tokenName.value))
     // const showReset = computed(() => theme.value.getCanReset?.(tokenPath.value));
 
     const onThemeChange = (newValue: number | string) => {
@@ -95,7 +97,7 @@ export const SeedTokenPreview = defineComponent({
       <>
         {tokenGroup.value && (
           <InputNumberPlus
-            value={tokenValue}
+            value={tokenValue.value}
             onChange={onChange}
             min={seedRange[tokenGroup.value].min}
             max={seedRange[tokenGroup.value].max}
@@ -113,24 +115,27 @@ export const SeedTokenPreview = defineComponent({
           </div>
         )}
         {tokenName.value === 'wireframe' && (
-          <Switch checked={tokenValue} onChange={onChange} />
+          <Switch checked={tokenValue.value} onChange={onChange} />
         )}
       </>
     )
 
     // ???
     if (slots.default) {
-      return (
+      return () => (
         <>
           {tokenName.value.startsWith('color') ? (
-            <ColorPicker
-              onChangeComplete={(newColor) => onThemeChange(newColor.toHexString())}
-              value={tokenValue}
-            >
-              {slots.default()}
-            </ColorPicker>
+            <>{slots.default()}</>
           ) : (
+            // <ColorPicker
+            //   class={[attrs.class]}
+            //   onChangeComplete={(newColor) => onThemeChange(newColor.toHexString())}
+            //   value={tokenValue}
+            // >
+            //   {slots.default()}
+            // </ColorPicker>
             <Popover
+              class={[attrs.class]}
               arrow={false}
               placement="bottomRight"
               trigger="click"
@@ -144,7 +149,7 @@ export const SeedTokenPreview = defineComponent({
     }
 
     return () => (
-      <div class="token-panel-pro-token-list-seed-block-sample">
+      <div class={[`${props.prefixCls}-token-list-seed-block-sample`, attrs.class]}>
         {tokenName.value.startsWith('color') && (
           <ColorPicker
             onChangeComplete={(newColor) => onThemeChange(newColor.toHexString())}
@@ -152,7 +157,7 @@ export const SeedTokenPreview = defineComponent({
           >
             {
               <div
-                class="token-panel-pro-token-list-seed-block-sample-card"
+                class={`${props.prefixCls}-token-list-seed-block-sample-card`}
                 style={{ pointerEvents: disabled.value ? 'none' : 'auto' }}
               >
                 <div
@@ -165,7 +170,7 @@ export const SeedTokenPreview = defineComponent({
                     boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.09)'
                   }}
                 />
-                <div class="token-panel-pro-token-list-seed-block-sample-card-value">
+                <div class={`${props.prefixCls}-token-list-seed-block-sample-card-value`}>
                   {tokenValue}
                 </div>
               </div>

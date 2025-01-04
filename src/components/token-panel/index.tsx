@@ -7,7 +7,7 @@ import {
   type CSSProperties
 } from 'vue'
 import { Anchor } from 'ant-design-vue'
-import { TokenContent } from './token-content'
+import { TokenContent } from '../token-content'
 import { tokenCategory, type TokenGroup } from '../../meta'
 import { useLocale } from '../../locale'
 import { getPrefixCls, useStyle } from './style'

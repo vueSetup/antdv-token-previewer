@@ -1,7 +1,6 @@
 export type { MutableTheme, PreviewerProps, Theme } from './interface'
 export * from '../locale'
 export * from '../meta'
-export { default as ThemeEditor } from './ThemeEditor'
-export type { ThemeEditorProps } from './ThemeEditor'
+export { ThemeEditor, type ThemeEditorProps } from './theme-editor'
 export { default as getDesignToken } from '../utils/getDesignToken'
 export { parsePlainConfig, parseThemeConfig } from '../utils/parse-config'

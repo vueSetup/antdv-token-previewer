@@ -3,8 +3,8 @@ import type { GlobalToken } from 'ant-design-vue/es/theme'
 import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
 import type { PropType } from 'vue'
 import { defineComponent, toRefs } from 'vue'
-import getColorBgImg from '../../../utils/getColorBgImg'
-import getDesignToken from '../../../utils/getDesignToken'
+import getColorBgImg from '../../utils/getColorBgImg'
+import getDesignToken from '../../utils/getDesignToken'
 
 export type TokenPreviewProps = {
   theme: ThemeConfig
