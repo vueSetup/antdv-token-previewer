@@ -1,7 +1,8 @@
-import { defineComponent, computed, toRefs, type PropType } from 'vue'
+import { defineComponent, computed, toRefs, type PropType, unref } from 'vue'
 import { Collapse } from 'ant-design-vue'
 import { CaretRightOutlined } from '@ant-design/icons-vue'
 import { MapTokenCollapseContent } from './MapTokenCollapseContent'
+// import MapTokenCollapseContent from './map-token-collapse-content.vue'
 import { useLocale, type Locale } from '../../locale'
 import type { MutableTheme, SelectedToken } from '../interface'
 import type { TokenGroup } from '../../meta'
@@ -60,7 +61,7 @@ export const MapTokenCollapse = defineComponent({
           )}
         >
           {(group.value.mapTokenGroups ?? Object.keys(groupedTokens)).map((key) => (
-            <Panel key={key} header={locale.value[key as keyof Locale] ?? ''}>
+            <Panel key={key} header={unref(locale)[key as keyof Locale] ?? ''}>
               <MapTokenCollapseContent
                 prefixCls={props.prefixCls}
                 mapTokens={groupedTokens.value[key]}
@@ -76,7 +77,7 @@ export const MapTokenCollapse = defineComponent({
     }
 
     if (group.value.groups) {
-      return (
+      return () => (
         <Collapse
           class={[`${props.prefixCls}-grouped-map-collapse`, attrs.class]}
           defaultActiveKey={group.value.groups.map((item) => item.key)}

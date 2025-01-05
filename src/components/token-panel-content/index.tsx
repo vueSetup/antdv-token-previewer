@@ -1,4 +1,4 @@
-import { defineComponent, ref, toRefs, type PropType } from 'vue'
+import { defineComponent, ref, toRefs, unref, type PropType } from 'vue'
 import {
   Collapse,
   ConfigProvider,
@@ -6,13 +6,15 @@ import {
   theme as antdvTheme,
   Tooltip
 } from 'ant-design-vue'
-import tokenMeta from 'ant-design-vue/es/version/token-meta.json'
 import { CaretRightOutlined, ExpandOutlined } from '@ant-design/icons-vue'
 import { Light, DarkTheme, CompactTheme } from '../icons'
 import { MapTokenCollapse } from './MapTokenCollapse'
 import { SeedTokenPreview } from './SeedTokenPreview'
-import { ResetTokenButton } from './ResetTokenButton'
+// import { ResetTokenButton } from './ResetTokenButton'
+import ResetTokenButton from './reset-token-button.vue'
+// import StyleContext from './context'
 import { IconSwitch } from './icon-switch'
+import tokenMeta from 'ant-design-vue/es/version/token-meta.json'
 import { themeMap, type ThemeCode } from '../../composables/useControlledTheme'
 import { HIGHLIGHT_COLOR } from '../../utils/constants'
 import { useLocale } from '../../locale'
@@ -48,8 +50,20 @@ const groupMapToken = (token: string): string => {
   return ''
 }
 
-export const TokenContent = defineComponent({
-  name: 'TokenContent',
+export type ColorTokenContentProps = {
+  id: string;
+  category: TokenCategory<string>;
+  theme: MutableTheme;
+  selectedTokens?: SelectedToken;
+  onTokenSelect?: (token: string | string[], type: keyof SelectedToken) => void;
+  infoFollowPrimary?: boolean;
+  onInfoFollowPrimaryChange?: (value: boolean) => void;
+  activeGroup: string;
+  onActiveGroupChange: (value: string) => void;
+};
+
+export const TokenPanelContent = defineComponent({
+  name: 'TokenPanelContent',
   inheritAttrs: false,
   props: {
     id: { type: String, required: true },
@@ -124,10 +138,11 @@ export const TokenContent = defineComponent({
     return () =>
       wrapSSR(
         <div id={id.value} class={[`${prefixCls}-color`, hashId.value]}>
+          {/* <StyleContext.Provider></StyleContext.Provider> */}
           <div class={`${prefixCls}-color-seeds`}>
             <div class={`${prefixCls}-color-themes`}>
               <span style={{ marginRight: 12 }}>
-                {locale.value._lang === 'zh-CN'
+                {unref(locale)._lang === 'zh-CN'
                   ? category.value.name
                   : category.value.nameEn}
               </span>
@@ -194,7 +209,7 @@ export const TokenContent = defineComponent({
               <div class={`${prefixCls}-token-list`}>
                 {category.value.groups.map((group) => {
                   const groupDesc =
-                    locale.value._lang === 'zh-CN' ? group.desc : group.descEn
+                    unref(locale)._lang === 'zh-CN' ? group.desc : group.descEn
                   return (
                     (!!group.seedToken || advanced) && (
                       <div class={`${prefixCls}-token-item`} key={group.key}>
@@ -208,7 +223,7 @@ export const TokenContent = defineComponent({
                             >
                               <div class={`${prefixCls}-token-item-header-title`}>
                                 <span>
-                                  {locale.value._lang === 'zh-CN'
+                                  {unref(locale)._lang === 'zh-CN'
                                     ? group.name
                                     : group.nameEn}
                                 </span>
@@ -246,9 +261,9 @@ export const TokenContent = defineComponent({
                                           placement="right"
                                           title={
                                             (tokenMeta as TokenMeta)[seedToken]?.[
-                                              locale.value._lang === 'zh-CN'
-                                                ? 'desc'
-                                                : 'descEn'
+                                            unref(locale)._lang === 'zh-CN'
+                                              ? 'desc'
+                                              : 'descEn'
                                             ]
                                           }
                                         >
@@ -270,9 +285,9 @@ export const TokenContent = defineComponent({
                                               >
                                                 {
                                                   (tokenMeta as TokenMeta)[seedToken]?.[
-                                                    locale.value._lang === 'zh-CN'
-                                                      ? 'name'
-                                                      : 'nameEn'
+                                                  unref(locale)._lang === 'zh-CN'
+                                                    ? 'name'
+                                                    : 'nameEn'
                                                   ]
                                                 }
                                               </span>
@@ -299,7 +314,7 @@ export const TokenContent = defineComponent({
                                           </span>
                                         </Tooltip>
                                         <ResetTokenButton
-                                          theme={theme}
+                                          theme={theme.value}
                                           tokenName={seedToken}
                                           style={{ marginLeft: 8 }}
                                         />
@@ -345,14 +360,14 @@ export const TokenContent = defineComponent({
                                         color: group.mapToken?.some(
                                           (t) =>
                                             !!theme.value.config.token?.[
-                                              t as keyof AliasToken
+                                            t as keyof AliasToken
                                             ]
                                         )
                                           ? HIGHLIGHT_COLOR
                                           : ''
                                       }}
                                     >
-                                      {locale.value._lang === 'zh-CN'
+                                      {unref(locale)._lang === 'zh-CN'
                                         ? '梯度变量 Map Token'
                                         : 'Map Token'}
                                     </span>

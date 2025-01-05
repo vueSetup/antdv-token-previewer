@@ -1,7 +1,8 @@
 import type { CSSProperties, PropType } from 'vue'
-import { defineComponent, toRefs, ref, computed } from 'vue'
-import { GlobalTokenEditor } from '../global-token-editor'
-import { LocaleContextProvider, zhCN } from '../../locale'
+import { defineComponent, toRefs } from 'vue'
+// import { GlobalTokenEditor } from '../global-token-editor'
+import GlobalTokenEditor from '../global-token-editor.vue'
+import { LocaleContext, zhCN } from '../../locale'
 import useControlledTheme from '../../composables/useControlledTheme'
 import { HIGHLIGHT_COLOR } from '../../utils/constants'
 import type { DerivativeFunc } from 'ant-design-vue/es/_util/cssinjs'
@@ -35,7 +36,7 @@ export const ThemeEditor = defineComponent({
   name: 'ThemeEditor',
   inheritAttrs: false,
   props: {
-    theme: { type: Object as PropType<Theme> },
+    theme: { type: Object as PropType<Theme>, required: true },
     darkAlgorithm: { type: Function as PropType<DerivativeFunc<SeedToken, MapToken>> },
     locale: { type: Object as PropType<Locale>, default: zhCN },
     mode: { type: String as PropType<ThemeEditorMode> },
@@ -54,10 +55,10 @@ export const ThemeEditor = defineComponent({
         onChange: props.onThemeChange
         // darkAlgorithm,
       })
-
+    const theme1 = props.theme
     return () =>
       wrapSSR(
-        <LocaleContextProvider value={locale}>
+        <LocaleContext.Provider value={locale}>
           <div
             class={[prefixCls, hashId.value, attrs.class]}
             style={attrs.style as CSSProperties}
@@ -73,7 +74,7 @@ export const ThemeEditor = defineComponent({
               />
             </div>
           </div>
-        </LocaleContextProvider>
+        </LocaleContext.Provider>
       )
   }
 })

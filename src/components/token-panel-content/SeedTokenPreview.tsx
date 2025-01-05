@@ -1,6 +1,7 @@
 import { computed, defineComponent, ref, toRefs, watchEffect, type PropType } from 'vue'
 import { Input, Popover, Switch } from 'ant-design-vue'
-import { InputNumberPlus } from './InputNumberPlus'
+// import { InputNumberPlus } from './InputNumberPlus'
+import InputNumberPlus from './input-number-plus.vue'
 import { ColorPicker } from '../color-picker'
 import { debounce } from 'lodash'
 import seed from 'ant-design-vue/es/theme/themes/seed'
@@ -18,7 +19,7 @@ export const SeedTokenPreview = defineComponent({
   name: 'SeedTokenPreview',
   inheritAttrs: false,
   props: {
-    prefixCls: { type: String, required: true },
+    prefixCls: { type: String },
     theme: { type: Object as PropType<MutableTheme>, required: true },
     tokenName: { type: String, required: true },
     disabled: { type: Boolean }
@@ -97,8 +98,7 @@ export const SeedTokenPreview = defineComponent({
       <>
         {tokenGroup.value && (
           <InputNumberPlus
-            value={tokenValue.value}
-            onChange={onChange}
+            v-model:value={tokenValue.value}
             min={seedRange[tokenGroup.value].min}
             max={seedRange[tokenGroup.value].max}
           />
@@ -106,14 +106,14 @@ export const SeedTokenPreview = defineComponent({
         {['boxShadow', 'lineHeight'].some((prefix) =>
           tokenName.value.startsWith(prefix)
         ) && (
-          <div>
-            <Input.TextArea
-              value={tokenValue}
-              onChange={({ target: { value } }) => onChange(value!)}
-              style={{ width: 200 }}
-            />
-          </div>
-        )}
+            <div>
+              <Input.TextArea
+                value={tokenValue}
+                onChange={({ target: { value } }) => onChange(value!)}
+                style={{ width: 200 }}
+              />
+            </div>
+          )}
         {tokenName.value === 'wireframe' && (
           <Switch checked={tokenValue.value} onChange={onChange} />
         )}

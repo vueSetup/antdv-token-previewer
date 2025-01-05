@@ -1,7 +1,9 @@
 import { defineComponent, toRefs, type PropType } from 'vue'
-import { TokenPreview } from './TokenPreview'
+// import { TokenPreview } from './TokenPreview'
+import TokenPreview from './token-preview.vue'
 import { SeedTokenPreview } from './SeedTokenPreview'
-import { ResetTokenButton } from './ResetTokenButton'
+// import { ResetTokenButton } from './ResetTokenButton'
+import ResetTokenButton from './reset-token-button.vue'
 import { useLocale } from '../../locale'
 import getDesignToken from '../../utils/getDesignToken'
 import tokenMeta from 'ant-design-vue/es/version/token-meta.json'
@@ -78,7 +80,7 @@ export const MapTokenCollapseContent = defineComponent({
               >
                 {mapToken}
               </span>
-              <ResetTokenButton theme={theme} tokenName={mapToken} />
+              <ResetTokenButton theme={theme.value} tokenName={mapToken} />
             </div>
             <span
               title={getDesignToken(theme.value.config)[mapToken]}

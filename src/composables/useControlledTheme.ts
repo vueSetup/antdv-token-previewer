@@ -2,8 +2,8 @@ import type { DerivativeFunc } from 'ant-design-vue/es/_util/cssinjs'
 import type { SeedToken, MapToken } from 'ant-design-vue/es/theme/interface'
 import { theme as antTheme } from 'ant-design-vue'
 import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
-import type { Ref } from 'vue'
-import { watchEffect, ref, computed } from 'vue'
+import type { MaybeRef, Ref } from 'vue'
+import { watchEffect, ref, computed, shallowRef, unref, watch } from 'vue'
 import type { MutableTheme, Theme } from '../components/interface'
 import deepUpdateObj from '../utils/deepUpdateObj'
 import getValueByPath from '../utils/getValueByPath'
@@ -24,7 +24,7 @@ export type SetThemeState = (
 ) => void
 
 export type UseControlledTheme = (options: {
-  theme?: Ref<Theme | undefined>
+  theme: MaybeRef<Theme> | undefined
   defaultTheme: Theme
   onChange?: (theme: Theme) => void
   darkAlgorithm?: Ref<DerivativeFunc<SeedToken, MapToken>>
@@ -40,10 +40,10 @@ const useControlledTheme: UseControlledTheme = ({
   defaultTheme,
   onChange
 }) => {
-  const theme = ref<Theme>(customTheme?.value ?? defaultTheme)
-  const infoFollowPrimary = ref<boolean>(false)
-  const themeRef = ref<Theme>(theme.value)
-  const renderHolder = ref(0)
+  const theme = shallowRef<Theme>(unref(customTheme) ?? defaultTheme)
+  const infoFollowPrimary = shallowRef<boolean>(false)
+  const themeRef = shallowRef<Theme>(theme.value)
+  const renderHolder = shallowRef(0)
 
   const forceUpdate = () => (renderHolder.value = renderHolder.value + 1)
 
@@ -78,7 +78,11 @@ const useControlledTheme: UseControlledTheme = ({
 
   const onResetTheme = (path: string[]) => {
     let newConfig = { ...theme.value.config }
-    newConfig = deepUpdateObj(newConfig, path, getValueByPath(themeRef.value?.config, path))
+    newConfig = deepUpdateObj(
+      newConfig,
+      path,
+      getValueByPath(themeRef.value?.config as Record<string, unknown>, path)
+    )
     onSetTheme({ ...theme.value, config: newConfig }, path)
   }
 
@@ -93,11 +97,20 @@ const useControlledTheme: UseControlledTheme = ({
   }
 
   // Controlled theme change
-  watchEffect(() => {
-    if (customTheme?.value) {
-      theme.value = customTheme?.value
-    }
-  })
+  // watchEffect(() => {
+  //   if (customTheme) {
+  //     theme.value = unref(customTheme)
+  //   }
+  // })
+
+  // watch(
+  //   () => unref(customTheme),
+  //   (value) => {
+  //     if (value) {
+  //       theme.value = value
+  //     }
+  //   }
+  // )
 
   const onInfoFollowPrimaryChange = (value: boolean) => {
     infoFollowPrimary.value = value

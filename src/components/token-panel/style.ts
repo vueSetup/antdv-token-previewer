@@ -13,11 +13,23 @@ export const useStyle = makeStyle('TokenPanel', (token) => ({
     height: '100%',
     display: 'flex',
     borderInlineEnd: `1px solid ${token.colorBorderSecondary}`,
+
     [`${token.componentCls}-content`]: {
       width: '100%',
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
+
+      [`${token.rootCls}-tabs`]: {
+        height: '100%',
+        overflow: 'auto',
+        [`${token.rootCls}-tabs-content`]: {
+          height: '100%',
+          [`${token.rootCls}-tabs-tabpane`]: {
+            height: '100%'
+          }
+        }
+      },
 
       [`${token.rootCls}-anchor-wrapper`]: {
         padding: '0px 16px'
